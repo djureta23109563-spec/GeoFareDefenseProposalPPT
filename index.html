@@ -30,141 +30,158 @@
     </script>
 
     <style>
-        html, body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-        }
-        h1, h2, h3, h4, .heading-font { font-family: 'Poppins', sans-serif; }
+    html, body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        background: #0B2046;
+    }
+    h1, h2, h3, h4, .heading-font { font-family: 'Poppins', sans-serif; }
 
-        /* ===== Scaler: keeps 1280x720 design, scales to fill viewport ===== */
-        .presentation-scaler {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-        }
+    /* ===== Scaler: keeps 1280x720 design, scales to fill viewport ===== */
+    .presentation-scaler {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0B2046;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+    .presentation-container {
+        width: 1280px;
+        height: 720px;
+        position: relative;
+        background: white;
+        transform-origin: center center;
+        flex-shrink: 0;
+        overflow: hidden;
+        border: 1px solid rgba(196, 154, 69, 0.45);
+        box-shadow:
+            0 0 0 1px rgba(196, 154, 69, 0.15),
+            0 0 30px rgba(196, 154, 69, 0.08),
+            0 25px 60px -20px rgba(0, 0, 0, 0.55);
+    }
+
+    .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+    .slide.active {
+        display: flex; opacity: 1;
+        animation: fadeInSlide 0.5s ease-out forwards;
+    }
+    @keyframes fadeInSlide {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-stagger > * {
+        opacity: 0;
+        animation: fadeInItem 0.5s ease-out forwards;
+    }
+    .animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+    .animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+    .animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+    .animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+    .animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+    .animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+    @keyframes fadeInItem {
+        0% { opacity: 0; transform: translateY(15px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Shared components ===== */
+    .slide-eyebrow {
+        color: #C49A45;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 0.4rem;
+    }
+    .slide-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #0B2046;
+        text-transform: uppercase;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
+    .divider-track { display: flex; margin-top: 1rem; }
+    .divider-track .lead { height: 4px; width: 6rem; background: #C49A45; border-radius: 999px 0 0 999px; }
+    .divider-track .trail { height: 4px; flex: 1; background: #e5e7eb; border-radius: 0 999px 999px 0; }
+
+    .slide-footer {
+        position: absolute; bottom: 1.5rem; left: 3.5rem; right: 3.5rem;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.8rem;
+        font-weight: 700; color: #9ca3af;
+        text-transform: uppercase; letter-spacing: 0.18em;
+    }
+
+    .icon-badge {
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 0.85rem; flex-shrink: 0;
+    }
+    .icon-badge-lg { width: 3.75rem; height: 3.75rem; font-size: 1.5rem; }
+    .icon-badge-md { width: 3rem;    height: 3rem;    font-size: 1.2rem; }
+    .icon-badge-sm { width: 2.25rem; height: 2.25rem; font-size: 0.95rem; }
+
+    .card {
+        background: #ffffff; border: 1px solid #e5e7eb; border-radius: 1rem;
+        box-shadow: 0 10px 30px -10px rgba(11, 32, 70, 0.06);
+    }
+
+    /* MADLC Chevron */
+    .chevron {
+        position: relative; padding: 14px 20px 14px 34px; margin-right: 5px;
+        background: #0B2046; color: white; flex: 1; text-align: center;
+        display: flex; flex-direction: column; justify-content: center;
+    }
+    .chevron::before {
+        content: ""; position: absolute; top: 0; left: 0;
+        border-top: 31px solid transparent; border-bottom: 31px solid transparent;
+        border-left: 16px solid white;
+    }
+    .chevron::after {
+        content: ""; position: absolute; top: 0; right: -16px;
+        border-top: 31px solid transparent; border-bottom: 31px solid transparent;
+        border-left: 16px solid #0B2046; z-index: 10;
+    }
+    .chevron:first-child::before { display: none; }
+    .chevron:first-child { padding-left: 22px; border-radius: 10px 0 0 10px; }
+    .chevron:last-child::after { display: none; }
+    .chevron:last-child { border-radius: 0 10px 10px 0; }
+    .chevron.active-step { background: #C49A45; color: #0B2046; font-weight: 800; }
+    .chevron.active-step::after { border-left-color: #C49A45; }
+
+    /* Hero image curved edge */
+    .hero-curve {
+        border-radius: 55% 0 0 55% / 100% 0 0 100%;
+        overflow: hidden;
+    }
+
+    @media print {
+        .presentation-scaler { background: white; position: static; padding: 0; }
         .presentation-container {
-            width: 1280px;
-            height: 720px;
-            position: relative;
-            background: white;
-            transform-origin: center center;
-            flex-shrink: 0;
-            overflow: hidden;
+            transform: none !important;
+            border: none !important;
+            box-shadow: none !important;
         }
-
-        .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
-        .slide.active {
-            display: flex; opacity: 1;
-            animation: fadeInSlide 0.5s ease-out forwards;
-        }
-        @keyframes fadeInSlide {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-stagger > * {
-            opacity: 0;
-            animation: fadeInItem 0.5s ease-out forwards;
-        }
-        .animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-        .animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
-        .animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
-        .animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
-        .animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
-        .animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
-        @keyframes fadeInItem {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== Shared components ===== */
-        .slide-eyebrow {
-            color: #C49A45;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-        .slide-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #0B2046;
-            text-transform: uppercase;
-            line-height: 1.1;
-            letter-spacing: -0.01em;
-        }
-        .divider-track { display: flex; margin-top: 1rem; }
-        .divider-track .lead { height: 4px; width: 6rem; background: #C49A45; border-radius: 999px 0 0 999px; }
-        .divider-track .trail { height: 4px; flex: 1; background: #e5e7eb; border-radius: 0 999px 999px 0; }
-
-        .slide-footer {
-            position: absolute; bottom: 1.5rem; left: 3.5rem; right: 3.5rem;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.8rem;
-            font-weight: 700; color: #9ca3af;
-            text-transform: uppercase; letter-spacing: 0.18em;
-        }
-
-        .icon-badge {
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 0.85rem; flex-shrink: 0;
-        }
-        .icon-badge-lg { width: 3.75rem; height: 3.75rem; font-size: 1.5rem; }
-        .icon-badge-md { width: 3rem;    height: 3rem;    font-size: 1.2rem; }
-        .icon-badge-sm { width: 2.25rem; height: 2.25rem; font-size: 0.95rem; }
-
-        .card {
-            background: #ffffff; border: 1px solid #e5e7eb; border-radius: 1rem;
-            box-shadow: 0 10px 30px -10px rgba(11, 32, 70, 0.06);
-        }
-
-        /* MADLC Chevron */
-        .chevron {
-            position: relative; padding: 14px 20px 14px 34px; margin-right: 5px;
-            background: #0B2046; color: white; flex: 1; text-align: center;
-            display: flex; flex-direction: column; justify-content: center;
-        }
-        .chevron::before {
-            content: ""; position: absolute; top: 0; left: 0;
-            border-top: 31px solid transparent; border-bottom: 31px solid transparent;
-            border-left: 16px solid white;
-        }
-        .chevron::after {
-            content: ""; position: absolute; top: 0; right: -16px;
-            border-top: 31px solid transparent; border-bottom: 31px solid transparent;
-            border-left: 16px solid #0B2046; z-index: 10;
-        }
-        .chevron:first-child::before { display: none; }
-        .chevron:first-child { padding-left: 22px; border-radius: 10px 0 0 10px; }
-        .chevron:last-child::after { display: none; }
-        .chevron:last-child { border-radius: 0 10px 10px 0; }
-        .chevron.active-step { background: #C49A45; color: #0B2046; font-weight: 800; }
-        .chevron.active-step::after { border-left-color: #C49A45; }
-
-        @media print {
-            .presentation-scaler { background: white; position: static; }
-            .presentation-container { transform: none !important; }
-            .slide { display: flex !important; opacity: 1 !important; page-break-after: always; }
-            .controls-ui { display: none !important; }
-        }
-    </style>
+        .slide { display: flex !important; opacity: 1 !important; page-break-after: always; }
+        .controls-ui { display: none !important; }
+    }
+</style>
 </head>
 <body>
 
     <!-- Controls -->
     <div class="controls-ui fixed top-6 right-6 z-50 flex items-center space-x-3 bg-navy-900/90 backdrop-blur-md px-5 py-3 rounded-full shadow-2xl border border-white/10 text-sm font-semibold text-white transition-all">
-        <span id="slideCounter" class="bg-gold-500 text-navy-900 px-3 py-1 rounded-full text-xs tracking-wider font-bold">1 / 15</span>
+        <span id="slideCounter" class="bg-gold-500 text-navy-900 px-3 py-1 rounded-full text-xs tracking-wider font-bold">1 / 16</span>
         <button onclick="prevSlide()" class="hover:text-gold-400 transition px-2 flex items-center"><i class="fas fa-chevron-left mr-2"></i> Prev</button>
         <button onclick="nextSlide()" class="hover:text-gold-400 transition px-2 flex items-center">Next <i class="fas fa-chevron-right ml-2"></i></button>
         <div class="text-xs text-gray-300 font-medium ml-2 border-l border-white/20 pl-3 uppercase tracking-widest hidden md:block">F11 Fullscreen</div>
@@ -174,83 +191,17 @@
     <div class="presentation-scaler">
         <div class="presentation-container">
 
-        <!-- ============================================================
-             SLIDE 1: TITLE
-             ============================================================ -->
-        <div class="slide active flex-col w-full h-full relative" id="slide-1">
-            <div class="absolute top-0 right-0 w-[42%] h-full bg-navy-900 z-0"
-                 style="clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);"></div>
-            <div class="absolute top-0 right-[42%] w-[2px] h-full bg-gold-500 z-0 opacity-70"></div>
+     <!-- ============================================================
+     SLIDE 1: TITLE (full-slide reference image)
+     ============================================================ -->
+<div class="slide active flex-col w-full h-full relative bg-white overflow-hidden" id="slide-1">
 
-            <div class="relative z-10 flex h-full w-full">
-                <div class="w-[58%] h-full px-14 py-12 flex flex-col justify-between">
-                    <div class="animate-stagger space-y-1">
-                        <p class="text-base font-bold tracking-widest text-gold-500 uppercase">Don Mariano Marcos Memorial State University</p>
-                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">South La Union Campus</p>
-                        <p class="text-lg font-bold heading-font uppercase mt-3 text-navy-900 border-l-2 border-navy-900 pl-3">College of Computer Science</p>
-                        <p class="text-sm text-gray-400 font-medium uppercase tracking-wider pl-3">Agoo, La Union</p>
-                    </div>
+    <!-- ⬇️ CHANGE "hero.png" TO YOUR ACTUAL IMAGE FILENAME ⬇️ -->
+    <img src="hero.png"
+         alt="GeoFare title slide"
+         class="w-full h-full object-cover object-center" />
 
-                    <div class="animate-stagger">
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-navy-50 text-navy-900 text-base font-bold uppercase tracking-widest rounded-md mb-5 border border-navy-100">
-                            <i class="fas fa-graduation-cap text-gold-500"></i>
-                            Research Proposal Defense
-                        </div>
-                        <h1 class="text-7xl font-extrabold heading-font text-navy-900 leading-none tracking-tight mb-3">GEOFare</h1>
-                        <div class="h-1.5 w-28 bg-gold-500 mb-6 rounded-full"></div>
-                        <h2 class="text-3xl font-bold heading-font text-navy-900 leading-tight">
-                            A Mobile-Based GPS Fare Computation<br>&amp; Route Monitoring System
-                        </h2>
-                        <p class="text-lg font-medium text-gray-600 mt-5 leading-relaxed max-w-[560px]">
-                            Enhancing tricycle passenger safety, trip accountability, and fare transparency in Agoo, La Union.
-                        </p>
-                    </div>
-
-                    <div></div>
-                </div>
-
-                <div class="w-[42%] h-full pl-10 pr-14 py-12 flex flex-col justify-center animate-stagger">
-                    <div class="bg-white/10 backdrop-blur-md p-7 rounded-2xl border border-white/15 shadow-2xl w-full">
-                        <h3 class="text-gold-500 text-base font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <i class="fas fa-user-graduate"></i> Researchers
-                        </h3>
-                        <ul class="text-white font-medium space-y-2 mb-6 text-lg leading-snug">
-                            <li>Donato G. Ureta Jr.</li>
-                            <li>Nicodemus Michael E. Callanta</li>
-                            <li>Rico T. Ecolin</li>
-                            <li>Dean Claude H. Fontanilla</li>
-                            <li>Rolando G. Galera Jr.</li>
-                            <li>John Selwyn G. Perez</li>
-                        </ul>
-
-                        <div class="w-full h-px bg-white/20 mb-5"></div>
-
-                        <h3 class="text-gold-500 text-base font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
-                            <i class="fas fa-chalkboard-teacher"></i> Thesis Adviser
-                        </h3>
-                        <p class="text-white font-bold text-xl">Enrique G. Abad, DIT</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="absolute bottom-0 left-0 right-0 bg-white py-4 px-16 flex justify-center items-center gap-12 z-20 border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
-                <div class="flex items-center space-x-3 group">
-                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-shield-alt"></i></div>
-                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">Passenger Safety</span>
-                </div>
-                <div class="w-px h-6 bg-gray-200"></div>
-                <div class="flex items-center space-x-3 group">
-                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-calculator"></i></div>
-                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">Accurate Fare</span>
-                </div>
-                <div class="w-px h-6 bg-gray-200"></div>
-                <div class="flex items-center space-x-3 group">
-                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-map-marked-alt"></i></div>
-                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">GPS Tracking</span>
-                </div>
-            </div>
-        </div>
-
+</div>
         <!-- ============================================================
              SLIDE 2: BACKGROUND
              ============================================================ -->
@@ -1313,88 +1264,6 @@
         </div>
 
         <!-- ============================================================
-             SLIDE 14: PROJECT TIMELINE
-             ============================================================ -->
-        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-14">
-            <div class="flex flex-col mb-8 relative z-10">
-                <div class="flex justify-between items-end">
-                    <div>
-                        <span class="slide-eyebrow">14 • Work Plan</span>
-                        <h2 class="slide-title">Project Timeline</h2>
-                    </div>
-                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-calendar-days"></i></div>
-                </div>
-                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
-            </div>
-
-            <p class="text-lg text-gray-600 font-medium mb-8 max-w-4xl leading-relaxed">
-                The project follows a phased implementation plan aligned with the MADLC, spanning approximately twenty-two (22) weeks across Academic Year 2026–2027.
-            </p>
-
-            <div class="flex flex-col flex-1 pb-14 animate-stagger">
-
-                <div class="relative w-full mb-4">
-                    <div class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">
-                        <span>Week 1</span>
-                        <span>Week 8</span>
-                        <span>Week 14</span>
-                        <span>Week 18</span>
-                        <span>Week 22</span>
-                    </div>
-                    <div class="w-full h-2 bg-gray-200 rounded-full relative overflow-hidden">
-                        <div class="absolute inset-y-0 left-0 w-[18%] bg-navy-900"></div>
-                        <div class="absolute inset-y-0 left-[18%] w-[18%] bg-navy-800"></div>
-                        <div class="absolute inset-y-0 left-[36%] w-[28%] bg-navy-700"></div>
-                        <div class="absolute inset-y-0 left-[64%] w-[18%] bg-gold-600"></div>
-                        <div class="absolute inset-y-0 left-[82%] w-[18%] bg-gold-500"></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-5 gap-3 flex-1">
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
-                        <div class="icon-badge icon-badge-md bg-navy-900 text-white mb-3"><i class="fas fa-clipboard-list"></i></div>
-                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 1 · W1–4</span>
-                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Planning &amp; Requirements</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Gather LGU fare rules, stakeholder needs, and system requirements.</p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
-                        <div class="icon-badge icon-badge-md bg-navy-800 text-white mb-3"><i class="fas fa-pen-ruler"></i></div>
-                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 2 · W5–8</span>
-                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">System Design</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Design the architecture, database schema, and UI wireframes.</p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
-                        <div class="icon-badge icon-badge-md bg-navy-700 text-white mb-3"><i class="fas fa-code"></i></div>
-                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 3 · W9–14</span>
-                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Development</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Build the mobile app, fare engine, OCR module, and dashboard.</p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
-                        <div class="icon-badge icon-badge-md bg-gold-600 text-white mb-3"><i class="fas fa-vials"></i></div>
-                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 4 · W15–18</span>
-                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Testing</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Conduct unit, integration, and user acceptance testing (UAT).</p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
-                        <div class="icon-badge icon-badge-md bg-gold-500 text-navy-900 mb-3"><i class="fas fa-rocket"></i></div>
-                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 5 · W19–22</span>
-                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Deployment &amp; Docs</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Deploy to pilot users and finalize system documentation.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span>GeoFare System Proposal</span>
-                <span>Project Timeline</span>
-            </div>
-        </div>
-
-        <!-- ============================================================
              SLIDE 15: EXPECTED OUTPUT & CONCLUSION
              ============================================================ -->
         <div class="slide flex-col w-full h-full bg-navy-900 relative p-14 overflow-hidden" id="slide-15">
@@ -1449,8 +1318,46 @@
             </div>
 
             <div class="absolute bottom-6 left-14 right-14 flex justify-between items-center text-sm font-bold text-white/40 uppercase tracking-widest">
+                <span>GeoFare System Proposal</span>
+                <span>Conclusion</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 16: THANK YOU
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-navy-900 relative overflow-hidden" id="slide-16">
+
+            <!-- Background decorations -->
+            <div class="absolute top-0 right-0 w-full h-full bg-navy-800 rounded-bl-[500px] opacity-50 z-0"></div>
+            <div class="absolute bottom-0 right-0 w-[60%] h-[60%] bg-gold-500 rounded-tl-[400px] opacity-10 z-0"></div>
+            <div class="absolute top-12 left-12 w-32 h-32 border-2 border-gold-500/20 rounded-full z-0"></div>
+            <div class="absolute bottom-12 right-32 w-24 h-24 border-2 border-white/10 rounded-full z-0"></div>
+
+            <!-- Main content -->
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-24 animate-stagger">
+
+                <div class="w-28 h-28 rounded-full bg-white/10 border-2 border-gold-500 flex items-center justify-center mb-8 shadow-2xl">
+                    <i class="fas fa-shield-alt text-gold-500 text-5xl"></i>
+                </div>
+
+                <h1 class="text-8xl font-extrabold heading-font text-white uppercase tracking-tight leading-none">Thank You</h1>
+
+                <div class="h-1.5 w-32 bg-gold-500 mx-auto my-8 rounded-full"></div>
+
+                <p class="text-2xl font-light text-gray-300 leading-relaxed max-w-3xl mb-12">
+                    We appreciate your time and insights during this research proposal defense.
+                </p>
+
+                <div class="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 px-7 py-3.5 rounded-full">
+                    <i class="fas fa-graduation-cap text-gold-500 text-lg"></i>
+                    <span class="text-white font-bold tracking-widest uppercase text-sm">GeoFare · Research Proposal Defense</span>
+                </div>
+            </div>
+
+            <div class="absolute bottom-6 left-14 right-14 flex justify-between items-center text-xs font-bold text-white/40 uppercase tracking-widest z-10">
+                <span>Don Mariano Marcos Memorial State University</span>
                 <span>End of Presentation</span>
-                <span>Thank You</span>
             </div>
         </div>
 
@@ -1489,7 +1396,6 @@
             else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
         });
 
-        // Auto-scale presentation to fill viewport
         function fitPresentation() {
             const designW = 1280;
             const designH = 720;
