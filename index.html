@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoFare Defense Proposal Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 900: '#0B2046', 800: '#15366D', 700: '#1E498F' },
+                        gold: { 500: '#C49A45', 600: '#A37C32', 400: '#D4AF6A' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'academic': '0 10px 30px -10px rgba(11, 32, 70, 0.1)',
+                        'academic-lg': '0 20px 40px -15px rgba(11, 32, 70, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html, body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+        }
+        h1, h2, h3, h4, .heading-font { font-family: 'Poppins', sans-serif; }
+
+        /* ===== Scaler: keeps 1280x720 design, scales to fill viewport ===== */
+        .presentation-scaler {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .presentation-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background: white;
+            transform-origin: center center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .slide.active {
+            display: flex; opacity: 1;
+            animation: fadeInSlide 0.5s ease-out forwards;
+        }
+        @keyframes fadeInSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-stagger > * {
+            opacity: 0;
+            animation: fadeInItem 0.5s ease-out forwards;
+        }
+        .animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+        .animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+        .animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+        .animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+        .animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+        .animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+        @keyframes fadeInItem {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Shared components ===== */
+        .slide-eyebrow {
+            color: #C49A45;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .slide-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0B2046;
+            text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+        .divider-track { display: flex; margin-top: 1rem; }
+        .divider-track .lead { height: 4px; width: 6rem; background: #C49A45; border-radius: 999px 0 0 999px; }
+        .divider-track .trail { height: 4px; flex: 1; background: #e5e7eb; border-radius: 0 999px 999px 0; }
+
+        .slide-footer {
+            position: absolute; bottom: 1.5rem; left: 3.5rem; right: 3.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.8rem;
+            font-weight: 700; color: #9ca3af;
+            text-transform: uppercase; letter-spacing: 0.18em;
+        }
+
+        .icon-badge {
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 0.85rem; flex-shrink: 0;
+        }
+        .icon-badge-lg { width: 3.75rem; height: 3.75rem; font-size: 1.5rem; }
+        .icon-badge-md { width: 3rem;    height: 3rem;    font-size: 1.2rem; }
+        .icon-badge-sm { width: 2.25rem; height: 2.25rem; font-size: 0.95rem; }
+
+        .card {
+            background: #ffffff; border: 1px solid #e5e7eb; border-radius: 1rem;
+            box-shadow: 0 10px 30px -10px rgba(11, 32, 70, 0.06);
+        }
+
+        /* MADLC Chevron */
+        .chevron {
+            position: relative; padding: 14px 20px 14px 34px; margin-right: 5px;
+            background: #0B2046; color: white; flex: 1; text-align: center;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .chevron::before {
+            content: ""; position: absolute; top: 0; left: 0;
+            border-top: 31px solid transparent; border-bottom: 31px solid transparent;
+            border-left: 16px solid white;
+        }
+        .chevron::after {
+            content: ""; position: absolute; top: 0; right: -16px;
+            border-top: 31px solid transparent; border-bottom: 31px solid transparent;
+            border-left: 16px solid #0B2046; z-index: 10;
+        }
+        .chevron:first-child::before { display: none; }
+        .chevron:first-child { padding-left: 22px; border-radius: 10px 0 0 10px; }
+        .chevron:last-child::after { display: none; }
+        .chevron:last-child { border-radius: 0 10px 10px 0; }
+        .chevron.active-step { background: #C49A45; color: #0B2046; font-weight: 800; }
+        .chevron.active-step::after { border-left-color: #C49A45; }
+
+        @media print {
+            .presentation-scaler { background: white; position: static; }
+            .presentation-container { transform: none !important; }
+            .slide { display: flex !important; opacity: 1 !important; page-break-after: always; }
+            .controls-ui { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Controls -->
+    <div class="controls-ui fixed top-6 right-6 z-50 flex items-center space-x-3 bg-navy-900/90 backdrop-blur-md px-5 py-3 rounded-full shadow-2xl border border-white/10 text-sm font-semibold text-white transition-all">
+        <span id="slideCounter" class="bg-gold-500 text-navy-900 px-3 py-1 rounded-full text-xs tracking-wider font-bold">1 / 15</span>
+        <button onclick="prevSlide()" class="hover:text-gold-400 transition px-2 flex items-center"><i class="fas fa-chevron-left mr-2"></i> Prev</button>
+        <button onclick="nextSlide()" class="hover:text-gold-400 transition px-2 flex items-center">Next <i class="fas fa-chevron-right ml-2"></i></button>
+        <div class="text-xs text-gray-300 font-medium ml-2 border-l border-white/20 pl-3 uppercase tracking-widest hidden md:block">F11 Fullscreen</div>
+    </div>
+
+    <!-- Scaler wrapper -->
+    <div class="presentation-scaler">
+        <div class="presentation-container">
+
+        <!-- ============================================================
+             SLIDE 1: TITLE
+             ============================================================ -->
+        <div class="slide active flex-col w-full h-full relative" id="slide-1">
+            <div class="absolute top-0 right-0 w-[42%] h-full bg-navy-900 z-0"
+                 style="clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);"></div>
+            <div class="absolute top-0 right-[42%] w-[2px] h-full bg-gold-500 z-0 opacity-70"></div>
+
+            <div class="relative z-10 flex h-full w-full">
+                <div class="w-[58%] h-full px-14 py-12 flex flex-col justify-between">
+                    <div class="animate-stagger space-y-1">
+                        <p class="text-base font-bold tracking-widest text-gold-500 uppercase">Don Mariano Marcos Memorial State University</p>
+                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">South La Union Campus</p>
+                        <p class="text-lg font-bold heading-font uppercase mt-3 text-navy-900 border-l-2 border-navy-900 pl-3">College of Computer Science</p>
+                        <p class="text-sm text-gray-400 font-medium uppercase tracking-wider pl-3">Agoo, La Union</p>
+                    </div>
+
+                    <div class="animate-stagger">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-navy-50 text-navy-900 text-base font-bold uppercase tracking-widest rounded-md mb-5 border border-navy-100">
+                            <i class="fas fa-graduation-cap text-gold-500"></i>
+                            Research Proposal Defense
+                        </div>
+                        <h1 class="text-7xl font-extrabold heading-font text-navy-900 leading-none tracking-tight mb-3">GEOFare</h1>
+                        <div class="h-1.5 w-28 bg-gold-500 mb-6 rounded-full"></div>
+                        <h2 class="text-3xl font-bold heading-font text-navy-900 leading-tight">
+                            A Mobile-Based GPS Fare Computation<br>&amp; Route Monitoring System
+                        </h2>
+                        <p class="text-lg font-medium text-gray-600 mt-5 leading-relaxed max-w-[560px]">
+                            Enhancing tricycle passenger safety, trip accountability, and fare transparency in Agoo, La Union.
+                        </p>
+                    </div>
+
+                    <div></div>
+                </div>
+
+                <div class="w-[42%] h-full pl-10 pr-14 py-12 flex flex-col justify-center animate-stagger">
+                    <div class="bg-white/10 backdrop-blur-md p-7 rounded-2xl border border-white/15 shadow-2xl w-full">
+                        <h3 class="text-gold-500 text-base font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fas fa-user-graduate"></i> Researchers
+                        </h3>
+                        <ul class="text-white font-medium space-y-2 mb-6 text-lg leading-snug">
+                            <li>Donato G. Ureta Jr.</li>
+                            <li>Nicodemus Michael E. Callanta</li>
+                            <li>Rico T. Ecolin</li>
+                            <li>Dean Claude H. Fontanilla</li>
+                            <li>Rolando G. Galera Jr.</li>
+                            <li>John Selwyn G. Perez</li>
+                        </ul>
+
+                        <div class="w-full h-px bg-white/20 mb-5"></div>
+
+                        <h3 class="text-gold-500 text-base font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <i class="fas fa-chalkboard-teacher"></i> Thesis Adviser
+                        </h3>
+                        <p class="text-white font-bold text-xl">Enrique G. Abad, DIT</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 bg-white py-4 px-16 flex justify-center items-center gap-12 z-20 border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+                <div class="flex items-center space-x-3 group">
+                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-shield-alt"></i></div>
+                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">Passenger Safety</span>
+                </div>
+                <div class="w-px h-6 bg-gray-200"></div>
+                <div class="flex items-center space-x-3 group">
+                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-calculator"></i></div>
+                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">Accurate Fare</span>
+                </div>
+                <div class="w-px h-6 bg-gray-200"></div>
+                <div class="flex items-center space-x-3 group">
+                    <div class="icon-badge icon-badge-sm bg-navy-50 text-navy-900 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-map-marked-alt"></i></div>
+                    <span class="text-base font-bold text-gray-700 uppercase tracking-wider">GPS Tracking</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 2: BACKGROUND
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-2">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">02 • Introduction</span>
+                        <h2 class="slide-title">Background of the Study</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-route"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <p class="text-xl text-gray-600 font-medium mb-8 max-w-4xl leading-relaxed">
+                Fare transparency remains a persistent challenge in local transportation when passengers lack immediate, objective ways to verify their expected fare.
+            </p>
+
+            <div class="w-full bg-white rounded-2xl shadow-academic p-8 relative flex flex-col justify-center animate-stagger flex-1 mb-12">
+                <h3 class="absolute top-6 left-8 text-base font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                    <i class="fas fa-stream text-gold-500"></i> The Current Passenger Journey
+                </h3>
+
+                <div class="flex justify-between items-center w-full px-8 relative mt-10">
+                    <div class="absolute top-8 left-[10%] w-[80%] h-1 bg-gray-100 -translate-y-1/2 z-0 rounded-full"></div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4 group">
+                        <div class="icon-badge icon-badge-lg bg-white border-2 border-gray-200 text-gray-400 shadow-sm transition-all group-hover:border-navy-900 group-hover:text-navy-900"><i class="fas fa-map-marker-alt"></i></div>
+                        <h4 class="font-bold text-navy-900 mt-4 mb-1 text-center text-lg">1. Trip Initiation</h4>
+                        <p class="text-base text-gray-500 text-center px-3 leading-relaxed">Passenger boards local tricycle</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4 group">
+                        <div class="icon-badge icon-badge-lg bg-white border-2 border-gray-200 text-gray-400 shadow-sm transition-all group-hover:border-navy-900 group-hover:text-navy-900"><i class="fas fa-coins"></i></div>
+                        <h4 class="font-bold text-navy-900 mt-4 mb-1 text-center text-lg">2. Fare Request</h4>
+                        <p class="text-base text-gray-500 text-center px-3 leading-relaxed">Driver issues fare charge upon arrival</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4 group">
+                        <div class="icon-badge icon-badge-lg bg-white border-2 border-gold-500 text-gold-500 shadow-md transition-all group-hover:bg-gold-500 group-hover:text-white"><i class="fas fa-search-dollar"></i></div>
+                        <h4 class="font-bold text-gold-600 mt-4 mb-1 text-center text-lg">3. Verification Gap</h4>
+                        <p class="text-base text-gray-500 text-center px-3 leading-relaxed">No accessible digital reference to verify accuracy</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4 group">
+                        <div class="icon-badge icon-badge-lg bg-red-50 border-2 border-red-200 text-red-500 shadow-md"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h4 class="font-bold text-red-600 mt-4 mb-1 text-center text-lg">4. Accountability Issue</h4>
+                        <p class="text-base text-gray-500 text-center px-3 leading-relaxed">Trip documentation and reporting are hindered</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-navy-900 rounded-xl p-5 flex items-center justify-between border-l-4 border-gold-500 shadow-academic-lg mx-8">
+                    <div class="flex items-center space-x-5">
+                        <div class="icon-badge icon-badge-md bg-white/10 text-gold-500"><i class="fas fa-bullseye"></i></div>
+                        <div>
+                            <p class="text-gold-500 text-sm font-bold uppercase tracking-widest mb-1">The Core Need</p>
+                            <p class="text-white text-lg font-medium leading-snug">A unified mechanism providing <span class="font-bold text-gold-400">accessible fare information</span>, <span class="font-bold text-gold-400">trip documentation</span>, and <span class="font-bold text-gold-400">reporting support</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Don Mariano Marcos Memorial State University</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 3: RRL
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-3">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">03 • Literature</span>
+                        <h2 class="slide-title">Review of Related Literature</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-book-open"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex space-x-6 flex-1 pb-14 animate-stagger">
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-badge icon-badge-md bg-navy-900 text-gold-500 mr-3"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-navy-900 uppercase tracking-wider leading-tight">Foreign Studies</h3>
+                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wider">International Benchmarks</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1 flex flex-col justify-start">
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-bolt text-navy-800 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Anand et al. (2025)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed mb-2">Automatic fare collection with distance-based real-time pricing.</p>
+                                    <span class="inline-block text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">Benchmark: &lt;200 ms latency</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-motorcycle text-navy-800 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Nair &amp; Daniel (2025)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed mb-2">Autotrickshaw booking app with Haversine-based fare estimation.</p>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">1.2s GPS update</span>
+                                        <span class="text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">96% success</span>
+                                        <span class="text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">±5% fare</span>
+                                        <span class="text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">0% crash</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-satellite-dish text-navy-800 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Wong et al. (2020, 2022); Marra et al. (2019)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Smartphone GPS apps improve perceived reliability, safety, and reduce transport anxiety.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-badge icon-badge-md bg-gold-500 text-navy-900 mr-3"><i class="fas fa-map-pin"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-navy-900 uppercase tracking-wider leading-tight">Local Studies</h3>
+                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wider">Philippine Context</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1 flex flex-col justify-start">
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-shield-halved text-gold-600 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">SafeTravelPH (UP Diliman, 2024)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Trip recording, incident reporting, and transport monitoring — proves PH digital transport feasibility.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-gavel text-gold-600 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Solano, Nueva Vizcaya (2025)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Fare ordinance compliance hinges on LGU &amp; Tricycle Regulatory Unit enforcement.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-triangle-exclamation text-gold-600 mt-1 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Tulaio &amp; Tandayu (2025)</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Identified fare inconsistencies, safety concerns, and the need for localized tricycle technology.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Related Literature</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 4: GAP & TARGET BENCHMARKS
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-4">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">04 • Research Gap</span>
+                        <h2 class="slide-title">Gap &amp; Target Benchmarks</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-bullseye"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <p class="text-lg text-gray-600 font-medium mb-6 max-w-4xl leading-relaxed">
+                Existing systems measure <span class="font-bold text-navy-900">partial workflows</span>. GeoFare targets the <span class="font-bold text-navy-900">complete passenger-centered fare computation</span> from destination selection to fare display.
+            </p>
+
+            <div class="flex-1 animate-stagger">
+                <div class="bg-white rounded-2xl shadow-academic border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-navy-900 text-white">
+                            <tr>
+                                <th class="px-5 py-3 text-sm font-bold uppercase tracking-widest">Metric</th>
+                                <th class="px-5 py-3 text-sm font-bold uppercase tracking-widest">Existing Benchmark</th>
+                                <th class="px-5 py-3 text-sm font-bold uppercase tracking-widest">GeoFare Target</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-stopwatch text-blue-600"></i>
+                                        <span class="font-bold text-navy-900 text-base">Computation Latency</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-base text-gray-600"><span class="font-semibold">&lt;200 ms</span> — Anand et al. (2025)</td>
+                                <td class="px-5 py-4"><span class="text-base font-extrabold text-gold-600 bg-gold-50 px-2.5 py-1 rounded border border-gold-200">≤ 200 ms</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-satellite-dish text-green-600"></i>
+                                        <span class="font-bold text-navy-900 text-base">Location Update Latency</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-base text-gray-600"><span class="font-semibold">≈1.2 s</span> — Nair &amp; Daniel (2025)</td>
+                                <td class="px-5 py-4"><span class="text-base font-extrabold text-gold-600 bg-gold-50 px-2.5 py-1 rounded border border-gold-200">≤ 1.2 s</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-check-double text-gold-600"></i>
+                                        <span class="font-bold text-navy-900 text-base">Fare Accuracy</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-base text-gray-600"><span class="font-semibold">±5%</span> — Nair &amp; Daniel (2025)</td>
+                                <td class="px-5 py-4"><span class="text-base font-extrabold text-gold-600 bg-gold-50 px-2.5 py-1 rounded border border-gold-200">Validated vs LGU matrix</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-bug text-purple-600"></i>
+                                        <span class="font-bold text-navy-900 text-base">Crash Rate</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-base text-gray-600"><span class="font-semibold">0%</span> — Nair &amp; Daniel (2025)</td>
+                                <td class="px-5 py-4"><span class="text-base font-extrabold text-gold-600 bg-gold-50 px-2.5 py-1 rounded border border-gold-200">0%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 bg-navy-900 rounded-xl p-5 flex items-start gap-4 border-l-4 border-gold-500">
+                    <div class="icon-badge icon-badge-md bg-white/10 text-gold-500"><i class="fas fa-lightbulb"></i></div>
+                    <div>
+                        <p class="text-gold-500 text-sm font-bold uppercase tracking-widest mb-1">The Technological Gap</p>
+                        <p class="text-white text-base font-medium leading-relaxed">No existing study measures the response time of the <span class="font-bold text-gold-400">complete passenger workflow</span>: destination selection → GPS acquisition → route distance → fare computation → display.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Research Gap</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 5: PROBLEM STATEMENT
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-5">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">05 • Problem Analysis</span>
+                        <h2 class="slide-title">Problem Statement &amp; Gap</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-puzzle-piece"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex space-x-6 h-full pb-14 items-stretch animate-stagger">
+
+                <div class="flex-1 bg-[#fafafa] border border-gray-200 rounded-2xl p-6 flex flex-col relative overflow-hidden group hover:shadow-academic transition duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gray-100 rounded-bl-full -z-0 transition group-hover:bg-red-50"></div>
+                    <h3 class="text-base font-bold text-gray-500 uppercase tracking-widest mb-6 border-b border-gray-200 pb-4 relative z-10 flex items-center gap-2">
+                        <i class="fas fa-circle-exclamation text-red-500"></i> Current Environment
+                    </h3>
+
+                    <ul class="space-y-4 text-gray-700 relative z-10 flex-1 flex flex-col justify-center">
+                        <li class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            <div class="icon-badge icon-badge-sm bg-red-50 text-red-500 mr-3 mt-0.5"><i class="fas fa-times"></i></div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 text-lg">Fare Uncertainty</h4>
+                                <p class="text-base text-gray-500 mt-1 leading-relaxed">Passengers lack real-time computation verifying standard distance-based rates.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            <div class="icon-badge icon-badge-sm bg-red-50 text-red-500 mr-3 mt-0.5"><i class="fas fa-times"></i></div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 text-lg">Limited Trip Documentation</h4>
+                                <p class="text-base text-gray-500 mt-1 leading-relaxed">No automated record of routes taken or specific tricycles boarded.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            <div class="icon-badge icon-badge-sm bg-red-50 text-red-500 mr-3 mt-0.5"><i class="fas fa-times"></i></div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 text-lg">Complex Reporting</h4>
+                                <p class="text-base text-gray-500 mt-1 leading-relaxed">Submitting disputes to LGUs lacks digital evidence and streamlined channels.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="w-1/4 flex flex-col items-center justify-center relative z-20">
+                    <div class="w-full h-px bg-gray-300 absolute top-1/2 left-0 -z-10"></div>
+                    <div class="w-full bg-navy-900 text-white rounded-2xl p-5 shadow-academic-lg text-center border-2 border-white relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-navy-900 text-sm font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md whitespace-nowrap">Research Gap</div>
+
+                        <div class="space-y-3 mt-4">
+                            <div class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
+                                <i class="fas fa-map-marked-alt text-gold-400 mb-1.5 text-xl"></i>
+                                <p class="text-sm font-semibold uppercase tracking-wider leading-tight">Localized Integration</p>
+                            </div>
+                            <div class="text-gold-500 text-lg"><i class="fas fa-plus"></i></div>
+                            <div class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
+                                <i class="fas fa-user-shield text-gold-400 mb-1.5 text-xl"></i>
+                                <p class="text-sm font-semibold uppercase tracking-wider leading-tight">Passenger-Centered Workflow</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-[#fafafa] border border-gray-200 rounded-2xl p-6 flex flex-col relative overflow-hidden group hover:shadow-academic transition duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gray-100 rounded-bl-full -z-0 transition group-hover:bg-navy-50"></div>
+                    <h3 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-6 border-b border-gray-200 pb-4 relative z-10 flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-gold-500"></i> GeoFare Response</span>
+                        <i class="fas fa-check-circle text-gold-500"></i>
+                    </h3>
+
+                    <ul class="space-y-3.5 text-gray-700 relative z-10 flex-1 flex flex-col justify-center">
+                        <li class="flex items-center group/item">
+                            <div class="icon-badge icon-badge-sm bg-navy-100 text-navy-900 mr-3 transition group-hover/item:bg-gold-500 group-hover/item:text-white"><i class="fas fa-check"></i></div>
+                            <span class="text-base font-semibold text-gray-700 group-hover/item:text-navy-900 transition">Agoo fare structure adherence</span>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="icon-badge icon-badge-sm bg-navy-100 text-navy-900 mr-3 transition group-hover/item:bg-gold-500 group-hover/item:text-white"><i class="fas fa-check"></i></div>
+                            <span class="text-base font-semibold text-gray-700 group-hover/item:text-navy-900 transition">GPS &amp; automated route monitoring</span>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="icon-badge icon-badge-sm bg-navy-100 text-navy-900 mr-3 transition group-hover/item:bg-gold-500 group-hover/item:text-white"><i class="fas fa-check"></i></div>
+                            <span class="text-base font-semibold text-gray-700 group-hover/item:text-navy-900 transition">OCR tricycle identification</span>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="icon-badge icon-badge-sm bg-navy-100 text-navy-900 mr-3 transition group-hover/item:bg-gold-500 group-hover/item:text-white"><i class="fas fa-check"></i></div>
+                            <span class="text-base font-semibold text-gray-700 group-hover/item:text-navy-900 transition">Immutable trip records &amp; reporting</span>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="icon-badge icon-badge-sm bg-navy-100 text-navy-900 mr-3 transition group-hover/item:bg-gold-500 group-hover/item:text-white"><i class="fas fa-check"></i></div>
+                            <span class="text-base font-semibold text-gray-700 group-hover/item:text-navy-900 transition">LGU centralized monitoring dashboard</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Problem Statement</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 6: PROPOSED SOLUTION
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-6">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">06 • Architecture</span>
+                        <h2 class="slide-title">Proposed Solution</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-project-diagram"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex justify-between items-stretch h-full space-x-6 pb-14 animate-stagger">
+
+                <div class="flex-1 bg-white rounded-2xl shadow-academic border border-gray-100 flex flex-col relative pt-12 p-6">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 icon-badge icon-badge-lg bg-navy-900 text-white shadow-lg border-2 border-white"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="text-center font-extrabold text-navy-900 text-lg uppercase tracking-widest mb-6">Mobile App</h3>
+
+                    <div class="space-y-2.5 flex-1 flex flex-col justify-center">
+                        <div class="bg-gray-50 p-3 rounded-lg flex items-center border border-gray-100 transition hover:bg-gray-100">
+                            <i class="fas fa-map-marker-alt text-navy-800 w-6 text-center text-lg"></i>
+                            <span class="text-base font-semibold text-gray-700 ml-3">GPS Route Monitoring</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg flex items-center border border-gray-100 transition hover:bg-gray-100 border-l-2 border-l-gold-500">
+                            <i class="fas fa-calculator text-gold-600 w-6 text-center text-lg"></i>
+                            <span class="text-base font-semibold text-navy-900 ml-3">Fare Computation</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg flex items-center border border-gray-100 transition hover:bg-gray-100">
+                            <i class="fas fa-camera text-navy-800 w-6 text-center text-lg"></i>
+                            <span class="text-base font-semibold text-gray-700 ml-3">OCR Identification</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg flex items-center border border-gray-100 transition hover:bg-gray-100">
+                            <i class="fas fa-file-invoice text-navy-800 w-6 text-center text-lg"></i>
+                            <span class="text-base font-semibold text-gray-700 ml-3">Digital Trip Records</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg flex items-center border border-gray-100 transition hover:bg-gray-100">
+                            <i class="fas fa-flag text-red-500 w-6 text-center text-lg"></i>
+                            <span class="text-base font-semibold text-gray-700 ml-3">Passenger Reporting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-navy-900 text-white rounded-2xl shadow-academic-lg border border-navy-800 flex flex-col justify-center items-center p-6 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 text-white/5 text-9xl"><i class="fas fa-cogs"></i></div>
+                    <h3 class="text-gold-500 text-sm font-extrabold uppercase tracking-widest mb-6 border-b border-white/10 pb-2 w-full text-center">Core Logic Engine</h3>
+
+                    <div class="flex flex-col items-center w-full space-y-2 z-10">
+                        <div class="bg-white/10 backdrop-blur border border-white/20 px-6 py-2.5 rounded-lg w-full text-center shadow-inner">
+                            <span class="text-base font-bold tracking-wider">GPS LOCATION</span>
+                        </div>
+                        <div class="text-gold-500 text-base"><i class="fas fa-plus"></i></div>
+                        <div class="bg-white/10 backdrop-blur border border-white/20 px-6 py-2.5 rounded-lg w-full text-center shadow-inner">
+                            <span class="text-base font-bold tracking-wider">DISTANCE ALGORITHM</span>
+                        </div>
+                        <div class="text-gold-500 text-base"><i class="fas fa-arrow-down"></i></div>
+                        <div class="bg-white/10 backdrop-blur border border-white/20 px-6 py-2.5 rounded-lg w-full text-center shadow-inner">
+                            <span class="text-base font-bold tracking-wider">AGOO FARE RULES</span>
+                        </div>
+                        <div class="text-gold-500 text-base"><i class="fas fa-equals"></i></div>
+                        <div class="bg-gold-500 text-navy-900 px-6 py-2.5 rounded-lg w-full text-center shadow-lg transform scale-105">
+                            <span class="text-lg font-extrabold tracking-widest">EXPECTED FARE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-white rounded-2xl shadow-academic border border-gray-100 flex flex-col relative pt-12 p-6">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 icon-badge icon-badge-lg bg-navy-900 text-white shadow-lg border-2 border-white"><i class="fas fa-desktop"></i></div>
+                    <h3 class="text-center font-extrabold text-navy-900 text-lg uppercase tracking-widest mb-6">LGU Dashboard</h3>
+
+                    <div class="space-y-5 flex-1 flex flex-col justify-center">
+                        <div class="text-center border-b border-gray-100 pb-4">
+                            <div class="icon-badge icon-badge-md bg-blue-50 text-blue-600 mx-auto mb-2"><i class="fas fa-folder-open"></i></div>
+                            <h4 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-1">Reports</h4>
+                            <p class="text-sm text-gray-500 font-medium">Organize &amp; review submissions</p>
+                        </div>
+                        <div class="text-center border-b border-gray-100 pb-4">
+                            <div class="icon-badge icon-badge-md bg-green-50 text-green-600 mx-auto mb-2"><i class="fas fa-database"></i></div>
+                            <h4 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-1">Trip Records</h4>
+                            <p class="text-sm text-gray-500 font-medium">Immutable historical data</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="icon-badge icon-badge-md bg-gold-50 text-gold-600 mx-auto mb-2"><i class="fas fa-chart-line"></i></div>
+                            <h4 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-1">Monitoring</h4>
+                            <p class="text-sm text-gray-500 font-medium">Data-driven LGU functions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Proposed Solution</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 7: OBJECTIVES & TARGETS
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-7">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">07 • Project Goals</span>
+                        <h2 class="slide-title">Objectives &amp; Targets</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-tasks"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="w-full bg-navy-900 text-white rounded-xl shadow-academic flex items-center p-6 border-l-4 border-gold-500 mb-8 animate-stagger">
+                <div class="icon-badge icon-badge-lg bg-white/10 text-gold-500 mr-6"><i class="fas fa-flag-checkered"></i></div>
+                <div>
+                    <h3 class="text-gold-500 text-sm font-extrabold uppercase tracking-widest mb-1">Primary Objective</h3>
+                    <p class="text-xl font-medium leading-relaxed">Design and develop GeoFare to provide <span class="font-bold text-white">fare transparency</span>, <span class="font-bold text-white">trip accountability</span>, and enhanced <span class="font-bold text-white">passenger safety</span>.</p>
+                </div>
+            </div>
+
+            <h3 class="text-base font-bold text-gray-400 uppercase tracking-widest mb-4 ml-1 flex items-center gap-2 animate-stagger">
+                <i class="fas fa-chart-simple text-gold-500"></i> Technical Evaluation Metrics &amp; Targets
+            </h3>
+
+            <div class="grid grid-cols-2 gap-5 pb-14 flex-1 animate-stagger">
+                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-start space-x-4 hover:border-gold-500 transition-colors group">
+                    <div class="icon-badge icon-badge-md bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition"><i class="fas fa-stopwatch"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-1">Computation Latency</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium mb-2">Response time of the fare engine after destination confirmation.</p>
+                        <span class="inline-block text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">Target: ≤ 200 ms</span>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-start space-x-4 hover:border-gold-500 transition-colors group">
+                    <div class="icon-badge icon-badge-md bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition"><i class="fas fa-satellite-dish"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-1">Location Update Latency</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium mb-2">GPS responsiveness during actual route tracking.</p>
+                        <span class="inline-block text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">Target: ≤ 1.2 s</span>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-start space-x-4 hover:border-gold-500 transition-colors group">
+                    <div class="icon-badge icon-badge-md bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition"><i class="fas fa-check-double"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-1">Fare Accuracy</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium mb-2">Agreement with validated Agoo LGU fare matrix.</p>
+                        <span class="inline-block text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">Reference: LGU Matrix</span>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-start space-x-4 hover:border-gold-500 transition-colors group">
+                    <div class="icon-badge icon-badge-md bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition"><i class="fas fa-bug"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-1">Application Crash Rate</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium mb-2">Stability under continuous monitoring conditions.</p>
+                        <span class="inline-block text-sm font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">Target: 0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Objectives &amp; Targets</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 8: EVALUATION FRAMEWORK
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-8">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">08 • Measurement</span>
+                        <h2 class="slide-title">Evaluation Framework</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-flask"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <p class="text-lg text-gray-600 font-medium mb-6 max-w-4xl leading-relaxed">
+                Four quantitative metrics will be measured using controlled system testing with the validated Agoo fare matrix as reference.
+            </p>
+
+            <div class="grid grid-cols-2 gap-5 flex-1 pb-14 animate-stagger">
+
+                <div class="card p-5 border-t-4 border-t-blue-600">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="icon-badge icon-badge-md bg-blue-50 text-blue-600"><i class="fas fa-stopwatch"></i></div>
+                        <div>
+                            <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider">Computation Latency</h4>
+                            <p class="text-sm text-gray-400 uppercase tracking-wider">CL (in ms)</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100">
+                        <p class="text-base font-mono text-navy-900 text-center">CL = T<sub>fare display</sub> − T<sub>computation initiation</sub></p>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">Measured from destination confirmation to fare display, across multiple origin-destination pairs.</p>
+                </div>
+
+                <div class="card p-5 border-t-4 border-t-green-600">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="icon-badge icon-badge-md bg-green-50 text-green-600"><i class="fas fa-satellite-dish"></i></div>
+                        <div>
+                            <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider">Location Update Latency</h4>
+                            <p class="text-sm text-gray-400 uppercase tracking-wider">RLUL (in s)</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100">
+                        <p class="text-base font-mono text-navy-900 text-center">RLUL = T<sub>displayed</sub> − T<sub>received</sub></p>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">Measured from GPS reading availability to successful display during actual route tracking.</p>
+                </div>
+
+                <div class="card p-5 border-t-4 border-t-gold-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="icon-badge icon-badge-md bg-gold-50 text-gold-600"><i class="fas fa-check-double"></i></div>
+                        <div>
+                            <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider">Fare Computation Accuracy</h4>
+                            <p class="text-sm text-gray-400 uppercase tracking-wider">FCA (in %)</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100">
+                        <p class="text-base font-mono text-navy-900 text-center">FCA = (N<sub>correct</sub> ÷ N<sub>total</sub>) × 100</p>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">GeoFare fare compared vs. validated fare matrix. Fare error also computed as % deviation.</p>
+                </div>
+
+                <div class="card p-5 border-t-4 border-t-purple-600">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="icon-badge icon-badge-md bg-purple-50 text-purple-600"><i class="fas fa-bug"></i></div>
+                        <div>
+                            <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider">Application Crash Rate</h4>
+                            <p class="text-sm text-gray-400 uppercase tracking-wider">ACR (in %)</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 mb-2 border border-gray-100">
+                        <p class="text-base font-mono text-navy-900 text-center">ACR = (N<sub>crashed</sub> ÷ N<sub>sessions</sub>) × 100</p>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">Records unexpected termination, freezing, or failure during repeated core-function test sessions.</p>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Evaluation Framework</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 9: SIGNIFICANCE
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-9">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">09 • Impact</span>
+                        <h2 class="slide-title">Significance of the Study</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-network-wired"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-center items-center pb-14 animate-stagger">
+
+                <div class="flex flex-col items-center mb-2">
+                    <div class="w-24 h-24 bg-navy-900 rounded-full flex flex-col items-center justify-center shadow-academic-lg border-4 border-white">
+                        <i class="fas fa-shield-alt text-gold-500 text-2xl mb-0.5"></i>
+                        <h3 class="text-white font-extrabold heading-font text-base tracking-wider">GeoFare</h3>
+                        <span class="text-xs text-gray-300 uppercase tracking-widest">Ecosystem</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center mb-2">
+                    <div class="w-px h-6 bg-gray-300"></div>
+                    <i class="fas fa-chevron-down text-gray-300 text-sm"></i>
+                </div>
+
+                <div class="relative w-full max-w-4xl mb-2">
+                    <div class="absolute top-0 left-[16.6%] right-[16.6%] h-px bg-gray-300"></div>
+                    <div class="flex justify-between px-[16.6%]">
+                        <div class="flex flex-col items-center -mt-1.5">
+                            <i class="fas fa-chevron-down text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex flex-col items-center -mt-1.5">
+                            <i class="fas fa-chevron-down text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex flex-col items-center -mt-1.5">
+                            <i class="fas fa-chevron-down text-gray-300 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6 w-full max-w-4xl mt-2">
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 text-center hover:-translate-y-1 hover:shadow-academic-lg transition-all duration-300">
+                        <div class="icon-badge icon-badge-md bg-gold-50 text-gold-600 mx-auto mb-3"><i class="fas fa-building"></i></div>
+                        <h4 class="font-extrabold text-navy-900 text-lg uppercase tracking-wider mb-2">Local Government</h4>
+                        <p class="text-base text-gray-500 font-medium leading-relaxed">Centralized incident reporting and data-backed monitoring support.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 text-center hover:-translate-y-1 hover:shadow-academic-lg transition-all duration-300">
+                        <div class="icon-badge icon-badge-md bg-blue-50 text-blue-600 mx-auto mb-3"><i class="fas fa-user"></i></div>
+                        <h4 class="font-extrabold text-navy-900 text-lg uppercase tracking-wider mb-2">Passengers</h4>
+                        <p class="text-base text-gray-500 font-medium leading-relaxed">Empowered fare verification, safety tracking, and reliable documentation.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 text-center hover:-translate-y-1 hover:shadow-academic-lg transition-all duration-300">
+                        <div class="icon-badge icon-badge-md bg-gray-50 text-gray-600 mx-auto mb-3"><i class="fas fa-motorcycle"></i></div>
+                        <h4 class="font-extrabold text-navy-900 text-lg uppercase tracking-wider mb-2">Tricycle Drivers</h4>
+                        <p class="text-base text-gray-500 font-medium leading-relaxed">Clear objective fare references fostering transparency and passenger trust.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Significance</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 10: SCOPE & LIMITATIONS
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-10">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">10 • Project Boundaries</span>
+                        <h2 class="slide-title">Scope &amp; Limitations</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-compress-arrows-alt"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex space-x-8 h-full pb-14 items-stretch animate-stagger">
+
+                <div class="flex-1 rounded-2xl overflow-hidden flex flex-col border border-navy-100 shadow-sm bg-[#fafafa]">
+                    <div class="bg-navy-900 text-white py-4 px-6 flex items-center justify-between">
+                        <h3 class="font-bold text-lg uppercase tracking-widest flex items-center gap-2"><i class="fas fa-check-circle text-gold-400"></i> Within the Study</h3>
+                        <i class="fas fa-check-double text-gold-400"></i>
+                    </div>
+                    <div class="p-7 flex-1">
+                        <ul class="space-y-5 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-navy-900 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-navy-900">Core Features</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">GPS fare computation, Route monitoring, OCR identification, Trip records.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-navy-900 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-navy-900">LGU Dashboard</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">Web-based platform for organizing and reviewing reports.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-navy-900 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-navy-900">Technical Evaluation</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">Testing for latency, accuracy, and application stability.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex-1 rounded-2xl overflow-hidden flex flex-col border border-gray-200 shadow-sm bg-white">
+                    <div class="bg-gray-100 text-gray-500 py-4 px-6 flex items-center justify-between border-b border-gray-200">
+                        <h3 class="font-bold text-lg uppercase tracking-widest flex items-center gap-2"><i class="fas fa-times-circle text-gray-400"></i> Outside the Study</h3>
+                        <i class="fas fa-ban text-gray-400"></i>
+                    </div>
+                    <div class="p-7 flex-1 opacity-90">
+                        <ul class="space-y-5 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-times text-gray-400 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-gray-700">Regulatory Authority</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">System does not replace or automate LGU enforcement actions.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times text-gray-400 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-gray-700">Financial Processing</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">No payment gateways, automated transactions, or financial penalties.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times text-gray-400 mr-3 mt-1 text-base"></i>
+                                <div>
+                                    <span class="text-lg font-bold block text-gray-700">Comprehensive Management</span>
+                                    <span class="text-base text-gray-500 leading-relaxed">Not designed as a full-scale public transportation management suite.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Scope &amp; Limitations</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 11: SYSTEM ARCHITECTURE
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-11">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">11 • Technical Framework</span>
+                        <h2 class="slide-title">System Architecture</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-sitemap"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex-1 flex items-center justify-center relative pb-12 animate-stagger">
+                <div class="w-full max-w-5xl bg-white rounded-2xl shadow-academic border border-gray-100 p-10 flex justify-between items-center relative">
+                    <div class="absolute top-1/2 left-[10%] w-[80%] h-0.5 bg-gray-200 -translate-y-1/2 z-0 border-t border-dashed border-gray-300"></div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4">
+                        <div class="icon-badge icon-badge-lg bg-blue-50 text-blue-600 shadow-sm mb-3 border border-blue-100"><i class="fas fa-user-check"></i></div>
+                        <h4 class="font-extrabold text-navy-900 text-lg uppercase tracking-wider mb-1 text-center">Passenger</h4>
+                        <p class="text-sm text-gray-500 font-medium text-center bg-gray-50 px-2.5 py-1 rounded">End-user Client</p>
+                    </div>
+
+                    <div class="relative z-10 w-1/4">
+                        <div class="bg-navy-900 text-white rounded-xl shadow-lg border-b-4 border-gold-500 p-5 text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-white/5 text-5xl"><i class="fas fa-mobile-alt"></i></div>
+                            <h4 class="font-bold text-lg uppercase tracking-wider mb-3">Mobile App</h4>
+                            <div class="space-y-1 text-sm text-gray-300 font-medium uppercase tracking-wider">
+                                <p class="bg-white/10 rounded py-1">GPS Engine</p>
+                                <p class="bg-white/10 rounded py-1">OCR Module</p>
+                                <p class="bg-white/10 rounded py-1">Data Input</p>
+                            </div>
+                        </div>
+                        <div class="absolute -right-8 top-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-1.5 text-gold-500 text-sm shadow-sm z-20"><i class="fas fa-exchange-alt"></i></div>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center w-1/4">
+                        <div class="w-20 h-20 bg-white border-2 border-gold-500 text-navy-900 rounded-2xl flex items-center justify-center text-3xl shadow-md mb-4 rotate-45 group hover:rotate-0 transition-transform duration-300">
+                            <i class="fas fa-database -rotate-45 group-hover:rotate-0 transition-transform duration-300"></i>
+                        </div>
+                        <h4 class="font-extrabold text-navy-900 text-lg uppercase tracking-wider mb-1 text-center mt-2">Cloud Backend</h4>
+                        <p class="text-sm text-gray-500 font-medium text-center bg-gray-50 px-2.5 py-1 rounded">API &amp; Database</p>
+                    </div>
+
+                    <div class="relative z-10 w-1/4">
+                        <div class="absolute -left-8 top-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-1.5 text-gold-500 text-sm shadow-sm z-20"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-lg border-t-4 border-navy-900 p-5 text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-gray-50 text-5xl"><i class="fas fa-desktop"></i></div>
+                            <h4 class="font-bold text-navy-900 text-lg uppercase tracking-wider mb-3">LGU Dashboard</h4>
+                            <div class="space-y-1 text-sm text-gray-500 font-medium uppercase tracking-wider relative z-10">
+                                <p class="bg-gray-50 border border-gray-100 rounded py-1">Reporting UI</p>
+                                <p class="bg-gray-50 border border-gray-100 rounded py-1">Records DB</p>
+                                <p class="bg-gray-50 border border-gray-100 rounded py-1">Analytics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Architecture</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 12: METHODOLOGY
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-12">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">12 • Execution Plan</span>
+                        <h2 class="slide-title">Methodology</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-microscope"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex flex-col space-y-10 flex-1 animate-stagger pb-14">
+
+                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fas fa-vial text-gold-500 text-lg"></i> Research Design
+                    </h3>
+                    <div class="flex space-x-5">
+                        <div class="flex-1 bg-white border border-gray-100 p-4 rounded-xl flex items-center shadow-sm border-l-4 border-l-navy-900">
+                            <div class="font-extrabold text-navy-900 text-lg uppercase tracking-wider w-1/3">Descriptive</div>
+                            <div class="text-base text-gray-500 font-medium border-l border-gray-100 pl-4">Analyzing current transportation gaps and LGU requirements in Agoo.</div>
+                        </div>
+                        <div class="flex-1 bg-white border border-gray-100 p-4 rounded-xl flex items-center shadow-sm border-l-4 border-l-gold-500">
+                            <div class="font-extrabold text-gold-600 text-lg uppercase tracking-wider w-1/3">Developmental</div>
+                            <div class="text-base text-gray-500 font-medium border-l border-gray-100 pl-4">Engineering, prototyping, and technically evaluating the GeoFare platform.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-bold text-navy-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fas fa-cogs text-gold-500 text-lg"></i> Software Development Lifecycle (MADLC)
+                    </h3>
+
+                    <div class="flex w-full drop-shadow-md">
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">01</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Identify</span>
+                        </div>
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">02</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Design</span>
+                        </div>
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">03</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Develop</span>
+                        </div>
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">04</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Prototype</span>
+                        </div>
+                        <div class="chevron active-step">
+                            <span class="block text-sm text-navy-900 font-bold mb-0.5">05</span>
+                            <span class="text-base font-extrabold uppercase tracking-wider">Test</span>
+                        </div>
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">06</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Deploy</span>
+                        </div>
+                        <div class="chevron">
+                            <span class="block text-sm text-gold-400 font-bold mb-0.5">07</span>
+                            <span class="text-base font-semibold uppercase tracking-wider">Maintain</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-center">
+                        <div class="bg-gold-50 border border-gold-200 px-6 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
+                            <i class="fas fa-info-circle text-gold-600"></i>
+                            <span class="text-base font-bold text-navy-900">Current Phase Focus:</span>
+                            <span class="text-base text-gray-700 font-medium">Unit, Integration, and User Acceptance Testing (UAT)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Methodology</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 13: SDG ALIGNMENT & ETHICS
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-13">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">13 • Alignment</span>
+                        <h2 class="slide-title">SDG Alignment &amp; Ethics</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-scale-balanced"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <div class="flex space-x-6 flex-1 pb-14 animate-stagger">
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-badge icon-badge-md bg-navy-900 text-gold-500 mr-3"><i class="fas fa-globe-asia"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-navy-900 uppercase tracking-wider leading-tight">SDG Alignment</h3>
+                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wider">UN Sustainable Development Goals</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1">
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-navy-900 text-gold-500"><i class="fas fa-industry"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">SDG 9 — Industry, Innovation &amp; Infrastructure</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Developing a technology-based localized transportation solution.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-navy-900 text-gold-500"><i class="fas fa-city"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">SDG 11 — Sustainable Cities &amp; Communities</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Promoting safer, more accessible, and accountable local transport services.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-navy-900">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-navy-900 text-gold-500"><i class="fas fa-gavel"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">SDG 16 — Peace, Justice &amp; Strong Institutions</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Supporting transparency, reporting, and responsive local governance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-badge icon-badge-md bg-gold-500 text-navy-900 mr-3"><i class="fas fa-shield-halved"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-navy-900 uppercase tracking-wider leading-tight">Ethical Considerations</h3>
+                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wider">Research Integrity Protocols</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 flex-1">
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-gold-500 text-navy-900"><i class="fas fa-file-signature"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Informed Consent</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">All respondents informed of purpose; voluntary participation.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-gold-500 text-navy-900"><i class="fas fa-user-lock"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Confidentiality &amp; Data Privacy</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">Compliant with Data Privacy Act of 2012 (RA 10173).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-gold-500 text-navy-900"><i class="fas fa-handshake"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Institutional Endorsement</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">LGU Agoo approval via official commitment letter prior to data gathering.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 border-l-4 border-l-gold-500">
+                            <div class="flex items-start gap-3">
+                                <div class="icon-badge icon-badge-sm bg-gold-500 text-navy-900"><i class="fas fa-heart-pulse"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-base mb-1">Non-Maleficence</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">No harm to respondents or drivers incidentally captured during testing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>SDG &amp; Ethics</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 14: PROJECT TIMELINE
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-14">
+            <div class="flex flex-col mb-8 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">14 • Work Plan</span>
+                        <h2 class="slide-title">Project Timeline</h2>
+                    </div>
+                    <div class="text-navy-900/10 text-6xl"><i class="fas fa-calendar-days"></i></div>
+                </div>
+                <div class="divider-track"><div class="lead"></div><div class="trail"></div></div>
+            </div>
+
+            <p class="text-lg text-gray-600 font-medium mb-8 max-w-4xl leading-relaxed">
+                The project follows a phased implementation plan aligned with the MADLC, spanning approximately twenty-two (22) weeks across Academic Year 2026–2027.
+            </p>
+
+            <div class="flex flex-col flex-1 pb-14 animate-stagger">
+
+                <div class="relative w-full mb-4">
+                    <div class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">
+                        <span>Week 1</span>
+                        <span>Week 8</span>
+                        <span>Week 14</span>
+                        <span>Week 18</span>
+                        <span>Week 22</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 rounded-full relative overflow-hidden">
+                        <div class="absolute inset-y-0 left-0 w-[18%] bg-navy-900"></div>
+                        <div class="absolute inset-y-0 left-[18%] w-[18%] bg-navy-800"></div>
+                        <div class="absolute inset-y-0 left-[36%] w-[28%] bg-navy-700"></div>
+                        <div class="absolute inset-y-0 left-[64%] w-[18%] bg-gold-600"></div>
+                        <div class="absolute inset-y-0 left-[82%] w-[18%] bg-gold-500"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-5 gap-3 flex-1">
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
+                        <div class="icon-badge icon-badge-md bg-navy-900 text-white mb-3"><i class="fas fa-clipboard-list"></i></div>
+                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 1 · W1–4</span>
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Planning &amp; Requirements</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Gather LGU fare rules, stakeholder needs, and system requirements.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
+                        <div class="icon-badge icon-badge-md bg-navy-800 text-white mb-3"><i class="fas fa-pen-ruler"></i></div>
+                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 2 · W5–8</span>
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">System Design</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Design the architecture, database schema, and UI wireframes.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
+                        <div class="icon-badge icon-badge-md bg-navy-700 text-white mb-3"><i class="fas fa-code"></i></div>
+                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 3 · W9–14</span>
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Development</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Build the mobile app, fare engine, OCR module, and dashboard.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
+                        <div class="icon-badge icon-badge-md bg-gold-600 text-white mb-3"><i class="fas fa-vials"></i></div>
+                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 4 · W15–18</span>
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Testing</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Conduct unit, integration, and user acceptance testing (UAT).</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col">
+                        <div class="icon-badge icon-badge-md bg-gold-500 text-navy-900 mb-3"><i class="fas fa-rocket"></i></div>
+                        <span class="text-sm font-bold text-gold-600 uppercase tracking-widest mb-1">Phase 5 · W19–22</span>
+                        <h4 class="font-extrabold text-navy-900 text-base uppercase tracking-wider mb-2">Deployment &amp; Docs</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed font-medium">Deploy to pilot users and finalize system documentation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>GeoFare System Proposal</span>
+                <span>Project Timeline</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SLIDE 15: EXPECTED OUTPUT & CONCLUSION
+             ============================================================ -->
+        <div class="slide flex-col w-full h-full bg-navy-900 relative p-14 overflow-hidden" id="slide-15">
+            <div class="absolute top-0 right-0 w-full h-full bg-navy-800 rounded-bl-[400px] z-0 opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-[60%] h-[60%] bg-gold-500 rounded-tr-[300px] z-0 opacity-10"></div>
+
+            <div class="flex flex-col mb-10 relative z-10">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="slide-eyebrow">15 • Final Summary</span>
+                        <h2 class="text-4xl font-extrabold heading-font text-white uppercase">Expected Output &amp; Conclusion</h2>
+                    </div>
+                </div>
+                <div class="flex mt-4"><div class="h-1 w-24 bg-gold-500 rounded-l"></div><div class="h-1 w-full bg-white/20 rounded-r"></div></div>
+            </div>
+
+            <div class="flex flex-col flex-1 relative z-10 animate-stagger space-y-6">
+
+                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-7 flex flex-col items-center justify-center shadow-2xl relative">
+                    <div class="absolute -top-3 bg-gold-500 text-navy-900 text-sm font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md whitespace-nowrap">Proposed Deliverables</div>
+
+                    <div class="flex items-center space-x-6 mt-2">
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-4xl text-white mb-3"></i>
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Mobile App</h3>
+                        </div>
+                        <div class="text-gold-500 text-2xl"><i class="fas fa-plus"></i></div>
+                        <div class="text-center">
+                            <i class="fas fa-desktop text-4xl text-white mb-3"></i>
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Web Dashboard</h3>
+                        </div>
+                    </div>
+                    <p class="text-base text-gray-300 font-medium mt-6 uppercase tracking-widest text-center">
+                        Functional <span class="text-gold-500 mx-2">•</span> Fully Localized <span class="text-gold-500 mx-2">•</span> Testable
+                    </p>
+                </div>
+
+                <div class="flex-1 flex flex-col items-center justify-center text-center px-16">
+                    <i class="fas fa-quote-left text-white/20 text-5xl mb-4"></i>
+                    <p class="text-2xl font-light text-white leading-relaxed">
+                        GeoFare bridges the technological gap in local transport by providing an <span class="font-bold text-gold-400">accessible mechanism</span> to verify fares, document journeys, and <span class="font-bold text-gold-400">empower passenger safety</span> while actively assisting LGU monitoring.
+                    </p>
+
+                    <div class="mt-10 flex justify-center items-center space-x-4">
+                        <div class="bg-white/10 px-5 py-2.5 rounded-lg border border-white/20 text-white text-base font-bold uppercase tracking-widest">Transparency</div>
+                        <i class="fas fa-chevron-right text-gold-500 text-base"></i>
+                        <div class="bg-white/10 px-5 py-2.5 rounded-lg border border-white/20 text-white text-base font-bold uppercase tracking-widest">Accountability</div>
+                        <i class="fas fa-chevron-right text-gold-500 text-base"></i>
+                        <div class="bg-gold-500 px-6 py-3 rounded-lg border border-gold-400 text-navy-900 text-base font-extrabold uppercase tracking-widest shadow-lg shadow-gold-500/20">Safer Trips</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-6 left-14 right-14 flex justify-between items-center text-sm font-bold text-white/40 uppercase tracking-widest">
+                <span>End of Presentation</span>
+                <span>Thank You</span>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+        const container = document.querySelector('.presentation-container');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.remove('active');
+                    void slide.offsetWidth;
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            counter.innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) { currentSlide++; updateSlide(); }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) { currentSlide--; updateSlide(); }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+        });
+
+        // Auto-scale presentation to fill viewport
+        function fitPresentation() {
+            const designW = 1280;
+            const designH = 720;
+            const scale = Math.min(window.innerWidth / designW, window.innerHeight / designH);
+            container.style.transform = `scale(${scale})`;
+        }
+        window.addEventListener('resize', fitPresentation);
+        window.addEventListener('orientationchange', fitPresentation);
+        fitPresentation();
+
+        updateSlide();
+    </script>
+</body>
+</html>
