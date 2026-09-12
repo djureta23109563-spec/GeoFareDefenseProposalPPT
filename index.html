@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GeoFare Defense Proposal Presentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -34,6 +34,8 @@
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0; overflow: hidden;
             width: 100vw; height: 100vh; background: #000;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
         }
         h1, h2, h3, h4, .heading-font { font-family: 'Poppins', sans-serif; }
 
@@ -46,6 +48,7 @@
             width: 1280px; height: 720px; position: relative;
             background: white; transform-origin: center center;
             flex-shrink: 0; overflow: hidden;
+            touch-action: pan-y;
         }
 
         .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
@@ -151,7 +154,7 @@
             justify-content: center;
             font-size: 20px;
             opacity: 0;
-            transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+            transition: opacity 0.25s ease, transform 0.25s ease;
             pointer-events: none;
             border: 1.5px solid rgba(196, 154, 69, 0.5);
             box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.55);
@@ -165,7 +168,12 @@
         .nav-zone:hover .nav-hint-right,
         .nav-zone:focus .nav-hint-right { transform: translateX(0); }
 
-        /* Subtle progress bar at the very bottom */
+        /* On touch devices, show arrow hints briefly on tap */
+        @media (hover: none) {
+            .nav-hint { opacity: 0.4; }
+        }
+
+        /* Progress bar */
         .progress-track {
             position: fixed;
             left: 0; right: 0; bottom: 0;
@@ -194,12 +202,12 @@
 <body>
 
     <!-- LEFT click zone -->
-    <div class="nav-zone nav-zone-left" onclick="prevSlide()" title="Previous slide (←)">
+    <div class="nav-zone nav-zone-left" onclick="prevSlide()" title="Previous slide">
         <div class="nav-hint nav-hint-left"><i class="fas fa-chevron-left"></i></div>
     </div>
 
     <!-- RIGHT click zone -->
-    <div class="nav-zone nav-zone-right" onclick="nextSlide()" title="Next slide (→)">
+    <div class="nav-zone nav-zone-right" onclick="nextSlide()" title="Next slide">
         <div class="nav-hint nav-hint-right"><i class="fas fa-chevron-right"></i></div>
     </div>
 
@@ -211,18 +219,12 @@
     <div class="presentation-scaler">
         <div class="presentation-container">
 
-        <!-- ============================================================
-             SLIDE 1: TITLE SLIDE (FULL HERO IMAGE)
-             ============================================================ -->
+        <!-- SLIDE 1: TITLE SLIDE -->
         <div class="slide active flex-col w-full h-full relative bg-white overflow-hidden" id="slide-1">
-            <img src="hero.png"
-                 alt="GeoFare title slide"
-                 class="w-full h-full object-cover object-center" />
+            <img src="hero.png" alt="GeoFare title slide" class="w-full h-full object-cover object-center" />
         </div>
 
-        <!-- ============================================================
-             SLIDE 2: BACKGROUND OF THE STUDY
-             ============================================================ -->
+        <!-- SLIDE 2: BACKGROUND -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-2">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -289,9 +291,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 3: REVIEW OF RELATED LITERATURE
-             ============================================================ -->
+        <!-- SLIDE 3: RRL -->
         <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-3">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -403,9 +403,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 4: GAP & TARGET BENCHMARKS
-             ============================================================ -->
+        <!-- SLIDE 4: GAP & TARGET BENCHMARKS -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-4">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -492,9 +490,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 5: PROBLEM STATEMENT & GAP
-             ============================================================ -->
+        <!-- SLIDE 5: PROBLEM STATEMENT -->
         <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-5">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -590,9 +586,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 6: PROPOSED SOLUTION
-             ============================================================ -->
+        <!-- SLIDE 6: PROPOSED SOLUTION -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-12" id="slide-6">
             <div class="flex flex-col mb-5 relative z-10">
                 <div class="flex justify-between items-end">
@@ -740,9 +734,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 7: SIGNIFICANCE OF THE STUDY
-             ============================================================ -->
+        <!-- SLIDE 7: SIGNIFICANCE -->
         <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-7">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -803,9 +795,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 8: SUSTAINABLE DEVELOPMENT GOALS (SDGs)
-             ============================================================ -->
+        <!-- SLIDE 8: SDGs -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-8">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -854,9 +844,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 9: STATEMENT OF OBJECTIVE
-             ============================================================ -->
+        <!-- SLIDE 9: STATEMENT OF OBJECTIVE -->
         <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-9">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -940,9 +928,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 10: METHODOLOGY - MADLC
-             ============================================================ -->
+        <!-- SLIDE 10: METHODOLOGY - MADLC -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-10">
             <div class="flex flex-col mb-5 relative z-10">
                 <div class="flex justify-between items-end">
@@ -1051,9 +1037,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 11: SYSTEM ARCHITECTURE
-             ============================================================ -->
+        <!-- SLIDE 11: SYSTEM ARCHITECTURE -->
         <div class="slide flex-col w-full h-full bg-white relative p-12" id="slide-11">
             <div class="flex flex-col mb-5 relative z-10">
                 <div class="flex justify-between items-end">
@@ -1188,9 +1172,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 12: SCOPE AND LIMITATIONS
-             ============================================================ -->
+        <!-- SLIDE 12: SCOPE & LIMITATIONS -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-12">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -1275,9 +1257,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 13: EVALUATION FRAMEWORK
-             ============================================================ -->
+        <!-- SLIDE 13: EVALUATION FRAMEWORK -->
         <div class="slide flex-col w-full h-full bg-white relative p-14" id="slide-13">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -1390,9 +1370,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 14: ETHICAL CONSIDERATIONS
-             ============================================================ -->
+        <!-- SLIDE 14: ETHICAL CONSIDERATIONS -->
         <div class="slide flex-col w-full h-full bg-[#f8fafc] relative p-14" id="slide-14">
             <div class="flex flex-col mb-6 relative z-10">
                 <div class="flex justify-between items-end">
@@ -1449,9 +1427,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 15: EXPECTED OUTPUT
-             ============================================================ -->
+        <!-- SLIDE 15: EXPECTED OUTPUT -->
         <div class="slide flex-col w-full h-full bg-navy-900 relative p-14 overflow-hidden" id="slide-15">
             <div class="absolute top-0 right-0 w-full h-full bg-navy-800 rounded-bl-[400px] z-0 opacity-50"></div>
             <div class="absolute bottom-0 left-0 w-[60%] h-[60%] bg-gold-500 rounded-tr-[300px] z-0 opacity-10"></div>
@@ -1508,9 +1484,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SLIDE 16: THANK YOU
-             ============================================================ -->
+        <!-- SLIDE 16: THANK YOU -->
         <div class="slide flex-col w-full h-full bg-navy-900 relative overflow-hidden" id="slide-16">
             <div class="absolute top-0 right-0 w-full h-full bg-navy-800 rounded-bl-[500px] opacity-50 z-0"></div>
             <div class="absolute bottom-0 right-0 w-[60%] h-[60%] bg-gold-500 rounded-tl-[400px] opacity-10 z-0"></div>
@@ -1561,8 +1535,6 @@
                     slide.classList.remove('active');
                 }
             });
-
-            // Update progress bar
             const pct = ((currentSlide + 1) / slides.length) * 100;
             progressFill.style.width = pct + '%';
         }
@@ -1575,6 +1547,7 @@
             if (currentSlide > 0) { currentSlide--; updateSlide(); }
         }
 
+        /* ===== Keyboard navigation ===== */
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
             else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
@@ -1582,6 +1555,55 @@
             else if (e.key === 'End') { e.preventDefault(); currentSlide = slides.length - 1; updateSlide(); }
         });
 
+        /* ===== Touch swipe navigation (phones/tablets) ===== */
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let isSwiping = false;
+
+        const SWIPE_MIN_DISTANCE = 50;
+        const SWIPE_MAX_TIME = 800;
+        const SWIPE_MAX_VERTICAL = 80;
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length !== 1) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            isSwiping = false;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length !== 1) return;
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            if (e.changedTouches.length !== 1) return;
+
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const dx = touchEndX - touchStartX;
+            const dy = touchEndY - touchStartY;
+            const elapsed = Date.now() - touchStartTime;
+
+            if (elapsed > SWIPE_MAX_TIME) return;
+            if (Math.abs(dy) > SWIPE_MAX_VERTICAL) return;
+            if (Math.abs(dx) < SWIPE_MIN_DISTANCE) return;
+
+            if (dx < 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }, { passive: true });
+
+        /* ===== Scaler ===== */
         function fitPresentation() {
             const designW = 1280;
             const designH = 720;
