@@ -123,7 +123,7 @@
         }
         .madlc-node:last-child .madlc-connector { display: none; }
 
-        /* ===== Navigation click zones ===== */
+        /* ===== Invisible navigation click zones ===== */
         .nav-zone {
             position: fixed;
             top: 0;
@@ -132,46 +132,12 @@
             min-width: 90px;
             z-index: 40;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            background: transparent;
         }
         .nav-zone-left { left: 0; }
         .nav-zone-right { right: 0; }
-
-        .nav-hint {
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            background: rgba(11, 32, 70, 0.88);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #C49A45;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            opacity: 0;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            pointer-events: none;
-            border: 1.5px solid rgba(196, 154, 69, 0.5);
-            box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.55);
-        }
-        .nav-zone:hover .nav-hint,
-        .nav-zone:focus .nav-hint { opacity: 1; }
-        .nav-hint-left { transform: translateX(-10px); }
-        .nav-zone:hover .nav-hint-left,
-        .nav-zone:focus .nav-hint-left { transform: translateX(0); }
-        .nav-hint-right { transform: translateX(10px); }
-        .nav-zone:hover .nav-hint-right,
-        .nav-zone:focus .nav-hint-right { transform: translateX(0); }
-
-        /* On touch devices, show arrow hints briefly on tap */
-        @media (hover: none) {
-            .nav-hint { opacity: 0.4; }
-        }
 
         /* Progress bar */
         .progress-track {
@@ -201,15 +167,11 @@
 </head>
 <body>
 
-    <!-- LEFT click zone -->
-    <div class="nav-zone nav-zone-left" onclick="prevSlide()" title="Previous slide">
-        <div class="nav-hint nav-hint-left"><i class="fas fa-chevron-left"></i></div>
-    </div>
+    <!-- LEFT click zone (invisible) -->
+    <div class="nav-zone nav-zone-left" onclick="prevSlide()" title="Previous slide"></div>
 
-    <!-- RIGHT click zone -->
-    <div class="nav-zone nav-zone-right" onclick="nextSlide()" title="Next slide">
-        <div class="nav-hint nav-hint-right"><i class="fas fa-chevron-right"></i></div>
-    </div>
+    <!-- RIGHT click zone (invisible) -->
+    <div class="nav-zone nav-zone-right" onclick="nextSlide()" title="Next slide"></div>
 
     <!-- Bottom progress bar -->
     <div class="progress-track">
@@ -1555,7 +1517,7 @@
             else if (e.key === 'End') { e.preventDefault(); currentSlide = slides.length - 1; updateSlide(); }
         });
 
-        /* ===== Touch swipe navigation (phones/tablets) ===== */
+        /* ===== Touch swipe navigation ===== */
         let touchStartX = 0;
         let touchStartY = 0;
         let touchStartTime = 0;
